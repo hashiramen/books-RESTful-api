@@ -3,6 +3,7 @@
     <ProjectReference Include="..\books.core\books.core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoFac" Version="4.6.0" />
     <PackageReference Include="AutoMapper" Version="6.0.2" />
   </ItemGroup>
   <PropertyGroup>
