@@ -8,5 +8,9 @@ namespace books.core.Domain
         public string Email{get;protected set;}
         public string Password{get;protected set;}
         public string Salt{get;protected set;}
+
+        public User()
+        {          
+        }
     }
 }

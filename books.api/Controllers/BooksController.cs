@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using books.infrastructure.Services;
 using System.Threading.Tasks;
+using books.infrastructure.Commands.Books;
 
 namespace books.api.Controllers
 {
@@ -24,5 +25,24 @@ namespace books.api.Controllers
             return Json(book);
         }
 
+        [HttpGet("")]
+        public async Task<IActionResult> GetAll(string title)
+        {
+            var book = await _bookService.GetAllAsync();
+            if(book == null)
+            {
+                return NotFound();
+            }
+
+            return Json(book);
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> Post([FromBody]CreateBook request)
+        {
+           await _bookService.AddAsync(request.Title, request.Author, request.ReleaseYear, request.Pages, request.Category);
+           
+           return Created($"books/{request.Title}", new object());
+        }
     }
 }

@@ -11,8 +11,8 @@ namespace books.infrastructure.Repositories
     {
         public static ISet<Book> _books = new HashSet<Book>
         {
-            new Book("Harry Potter i komnata tajemnic", "J.K.Rowling", 2005, 842, "Fantasy"),
-            new Book("Gwiezdny Patrol", "Adam Konopnicki", 2015, 311, "Sci-Fi")
+            new Book("Harry Potter", "J.K.Rowling", 2005, 842, "Fantasy"),
+            new Book("Star Patrol", "Adam Konopnicki", 2015, 311, "Sci-Fi")
         };
         public async Task<Book> GetAsync(Guid Id)
             => await Task.FromResult(_books.SingleOrDefault(b => b.Id == Id));

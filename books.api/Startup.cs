@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using books.core.Repositories;
+using books.infrastructure.Mappers;
 using books.infrastructure.Repositories;
 using books.infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
 
 namespace books.api
 {
@@ -32,6 +34,7 @@ namespace books.api
         {
             services.AddScoped<IBookRepository, InMemoryBookRepository>();
             services.AddScoped<IBookService, BookService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
             // Add framework services.
             services.AddMvc();
         }

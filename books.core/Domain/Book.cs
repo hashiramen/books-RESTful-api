@@ -12,6 +12,10 @@ namespace books.core.Domain
         public string Category{get;protected set;}
         public DateTime UpdatedAt{get;protected set;}
 
+        public Book()
+        {
+        }
+
         public Book(string title, string author, int releaseYear, int pages, string category)
         {
             Id = Guid.NewGuid();
@@ -20,6 +24,7 @@ namespace books.core.Domain
             ReleaseYear = releaseYear;
             Pages = pages;
             Category = category;
+            UpdatedAt = DateTime.UtcNow;
         }
     }
 }

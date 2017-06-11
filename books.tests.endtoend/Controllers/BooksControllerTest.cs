@@ -8,24 +8,49 @@ using Newtonsoft.Json;
 using Xunit;
 using FluentAssertions;
 using System.Net;
+using Moq;
+using books.infrastructure.Commands.Books;
 
 namespace books.tests.endtoend.Controllers
 {
     public class BooksControllerTest : ControllerTestsBase
     {
         [Fact]
+        public async Task get_list_of_all_books()
+        {
+            var response = await Client.GetAsync("books");
+
+            response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.OK);
+        }
+
+        [Fact]
         public async Task given_valid_book_name_book_should_exist()
         {
-            var bookName = "Gwiezdny Patrol";
+            var bookName = "Harry Potter";
 
             var response = await Client.GetAsync($"books/{bookName}");
             response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.OK);
         }
 
         [Fact]
-        public void given_test_is_equal_true()
+        public async Task given_json_object_should_add_new_book()
         {
-            Assert.Equal(2, 1 + 1);
+            var command = new CreateBook
+            {
+                Title = "Game of Thrones: A Song of Ice and Fire",
+                Author = "George R. R. Martin",
+                Pages = 694, 
+                ReleaseYear = 1996,
+                Category = "Fantasy"
+            };
+
+            var payload = GetPayload(command);
+            var response = await Client.PostAsync("books/add", payload);
+            response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.Created);
+            response.Headers.Location.ToString().ShouldBeEquivalentTo($"books/{command.Title}");
+
+            var book = await GetBookAsync(command.Title);
+            book.Title.ShouldBeEquivalentTo(command.Title);
         }
 
         private async Task<BookDTO> GetBookAsync(string title)
