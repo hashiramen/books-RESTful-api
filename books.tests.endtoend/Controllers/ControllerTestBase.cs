@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace books.tests.endtoend.Controllers
 {
-    public abstract class ControllerTestsBase
+    public abstract class ControllerTestBase
     {
         protected readonly TestServer Server;
         protected readonly HttpClient Client;
 
-        protected ControllerTestsBase()
+        protected ControllerTestBase()
         {
             Server = new TestServer(new WebHostBuilder()
                           .UseStartup<Startup>());
@@ -24,6 +24,6 @@ namespace books.tests.endtoend.Controllers
             var json = JsonConvert.SerializeObject(data);
 
             return new StringContent(json, Encoding.UTF8, "application/json");
-        }                
+        }      
     }
 }

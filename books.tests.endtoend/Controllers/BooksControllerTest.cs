@@ -13,7 +13,7 @@ using books.infrastructure.Commands.Books;
 
 namespace books.tests.endtoend.Controllers
 {
-    public class BooksControllerTest : ControllerTestsBase
+    public class BooksControllerTest : ControllerTestBase
     {
         [Fact]
         public async Task get_list_of_all_books()
